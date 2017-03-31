@@ -68,7 +68,6 @@ __simple_cap = {
 	'58': ('Grosseto', __region_tc),
 	'59': ('Prato', __region_tc),
 	'60': ('Ancona', __region_mh),
-	'61': ('Pesaro-Urbino', __region_mh),
 	'62': ('Macerata', __region_mh),
 	'63': ('Ascoli Piceno', __region_mh),
 	'64': ('Teramo', __region_ab),
@@ -222,7 +221,8 @@ def __cap_33(code):
 
 def __cap_34(code):
 	if code.startswith('34'):
-		if code.startswith('3412') or code.startswith('3413') or code.startswith('3414') or code.startswith('3415') or code.startswith('3401'):
+		if code.startswith('3412') or code.startswith('3413') or code.startswith('3414') or code.startswith(
+			'3415') or code.startswith('3401'):
 			return 'Trieste', __region_fb
 		if code.startswith('34170') or code.startswith('3407'):
 			return 'Gorizia', __region_fb
@@ -253,6 +253,16 @@ def __cap_54(code):
 			return 'Carrara', __region_tc
 
 		return 'Massa', __region_tc
+
+	return None
+
+
+def __cap_61(code):
+	if code.startswith('61'):
+		if code.startswith('61029'):
+			return 'Urbino', __region_mh
+
+		return 'Pesaro', __region_mh
 
 	return None
 
@@ -327,6 +337,7 @@ def location_for_postcode(code):
 		__cap_34,
 		__cap_47,
 		__cap_54,
+		__cap_61,
 		__cap_76,
 		__cap_86,
 		__cap_88,

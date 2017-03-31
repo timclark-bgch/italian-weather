@@ -76,5 +76,13 @@ def test_location_for_postcode():
 	assert location_for_postcode('53100') == 'Siena, Toscana'
 	assert location_for_postcode('54100') == 'Massa, Toscana'
 	assert location_for_postcode('54023') == 'Carrara, Toscana'
+	assert location_for_postcode('55100') == 'Lucca, Toscana'
+	assert location_for_postcode('56121') == 'Pisa, Toscana'
+	assert location_for_postcode('57121') == 'Livorno, Toscana'
+	assert location_for_postcode('58100') == 'Grosseto, Toscana'
+	assert location_for_postcode('59100') == 'Prato, Toscana'
+	assert location_for_postcode('60121') == 'Ancona, Marche'
+	assert location_for_postcode('61100') == 'Pesaro, Marche'
+	assert location_for_postcode('61029') == 'Urbino, Marche'
 
 
