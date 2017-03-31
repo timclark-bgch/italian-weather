@@ -45,7 +45,6 @@ __simple_cap = {
 	'30': ('Venezia', __region_vn),
 	'31': ('Treviso', __region_vn),
 	'32': ('Belluno', __region_vn),
-	'34': ('Gorizia', __region_fb),
 	'35': ('Padova', __region_vn),
 	'36': ('Vicenza', __region_vn),
 	'37': ('Verona', __region_vn),
@@ -222,6 +221,16 @@ def __cap_33(code):
 	return None
 
 
+def __cap_34(code):
+	if code.startswith('34'):
+		if code.startswith('3412') or code.startswith('3413') or code.startswith('3414') or code.startswith('3415') or code.startswith('3401'):
+			return 'Trieste', __region_fb
+		if code.startswith('34170') or code.startswith('3407'):
+			return 'Gorizia', __region_fb
+
+	return None
+
+
 def __cap_47(code):
 	if code.startswith('47'):
 		if code.startswith('47890'):
@@ -303,6 +312,7 @@ def location_for_postcode(code):
 		__cap_26,
 		__cap_28,
 		__cap_33,
+		__cap_34,
 		__cap_47,
 		__cap_76,
 		__cap_86,
