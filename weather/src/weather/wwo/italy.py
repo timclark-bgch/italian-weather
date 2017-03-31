@@ -239,6 +239,9 @@ def __cap_47(code):
 		if code.startswith('471') or code.startswith('470'):
 			return 'Forli', __region_er
 
+		if code.startswith('4792') or code.startswith('478'):
+			return 'Rimini', __region_er
+
 		if code.startswith('475'):
 			return 'Cesena', __region_er
 
