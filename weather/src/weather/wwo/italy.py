@@ -62,7 +62,6 @@ __simple_cap = {
 	'51': ('Pistoia', __region_tc),
 	'52': ('Arezzo', __region_tc),
 	'53': ('Siena', __region_tc),
-	'54': ('Massa-Carrara', __region_tc),
 	'55': ('Lucca', __region_tc),
 	'56': ('Pisa', __region_tc),
 	'57': ('Livorno', __region_tc),
@@ -248,6 +247,16 @@ def __cap_47(code):
 	return None
 
 
+def __cap_54(code):
+	if code.startswith('54'):
+		if code.startswith('54023'):
+			return 'Carrara', __region_tc
+
+		return 'Massa', __region_tc
+
+	return None
+
+
 def __cap_76(code):
 	if code.startswith('76'):
 		if code.startswith('76121') or code.startswith('760'):
@@ -317,6 +326,7 @@ def location_for_postcode(code):
 		__cap_33,
 		__cap_34,
 		__cap_47,
+		__cap_54,
 		__cap_76,
 		__cap_86,
 		__cap_88,

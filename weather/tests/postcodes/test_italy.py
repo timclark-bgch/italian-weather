@@ -68,5 +68,13 @@ def test_location_for_postcode():
 	assert location_for_postcode('47121') == 'Forli, Emilia-Romagna'
 	assert location_for_postcode('47521') == 'Cesena, Emilia-Romagna'
 	assert location_for_postcode('47921') == 'Rimini, Emilia-Romagna'
+	assert location_for_postcode('47890') == 'San Marino, San Marino'
+	assert location_for_postcode('48121') == 'Ravenna, Emilia-Romagna'
+	assert location_for_postcode('50121') == 'Firenze, Toscana'
+	assert location_for_postcode('51100') == 'Pistoia, Toscana'
+	assert location_for_postcode('52100') == 'Arezzo, Toscana'
+	assert location_for_postcode('53100') == 'Siena, Toscana'
+	assert location_for_postcode('54100') == 'Massa, Toscana'
+	assert location_for_postcode('54023') == 'Carrara, Toscana'
 
 
