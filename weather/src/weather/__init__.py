@@ -51,7 +51,3 @@ def __response(icon=None, description=None, temperature=None):
 		'description': description,
 		'temperature': temperature
 	}
-
-
-print weather('GB', 'SW1A')
-print weather('GB', 'SW1A')

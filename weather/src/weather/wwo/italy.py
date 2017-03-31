@@ -20,14 +20,14 @@ __region_vd = 'Valle d\'Aosta'
 __region_vn = 'Veneto'
 
 __simple_cap = {
-	'00': ('Roma', __region_lz),
+	'00': ('Rome', __region_lz),
 	'01': ('Viterbo', __region_lz),
 	'02': ('Rieti', __region_lz),
 	'03': ('Frosinone', __region_lz),
 	'04': ('Latina', __region_lz),
 	'05': ('Terni', __region_um),
 	'06': ('Perugia', __region_um),
-	'10': ('Torino', __region_pm),
+	'10': ('Turin', __region_pm),
 	'11': ('Aosta', __region_vd),
 	'12': ('Cuneo', __region_pm),
 	'14': ('Asti', __region_pm),
@@ -56,7 +56,7 @@ __simple_cap = {
 	'43': ('Parma', __region_er),
 	'44': ('Ferrara', __region_er),
 	'45': ('Rovigo', __region_vn),
-	'46': ('Mantova', __region_lm),
+	'46': ('Mantova', __region_vn),
 	'48': ('Ravenna', __region_er),
 	'50': ('Firenze', __region_tc),
 	'51': ('Pistoia', __region_tc),
@@ -79,7 +79,7 @@ __simple_cap = {
 	'73': ('Lecce', __region_pu),
 	'74': ('Taranto', __region_pu),
 	'75': ('Matera', __region_bc),
-	'80': ('Napoli', __region_cm),
+	'80': ('Naples', __region_cm),
 	'81': ('Caserta', __region_cm),
 	'82': ('Benevento', __region_cm),
 	'83': ('Avellino', __region_cm),
@@ -187,7 +187,7 @@ def __cap_23(code):
 def __cap_26(code):
 	if code.startswith('26'):
 		if code.startswith('261') or code.startswith('260'):
-			return 'Cremona', __region_lm
+			return 'Cremona', 'Italy' # WWO has problems with Cremona
 
 		if code.startswith('269') or code.startswith('268'):
 			return 'Lodi', __region_lm
@@ -201,7 +201,7 @@ def __cap_28(code):
 			return 'Novara', __region_pm
 
 		if code.startswith('289') or code.startswith('288'):
-			return 'Verbania', __region_pm
+			return 'Cusio', __region_pm
 
 	return None
 
@@ -259,7 +259,7 @@ def __cap_54(code):
 def __cap_61(code):
 	if code.startswith('61'):
 		if code.startswith('61029'):
-			return 'Urbino', __region_mh
+			return 'Urbino', 'Italy' # WWO has a problem with Urbino
 
 		return 'Pesaro', __region_mh
 
