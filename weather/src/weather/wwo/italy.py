@@ -69,7 +69,6 @@ __simple_cap = {
 	'59': ('Prato', __region_tc),
 	'60': ('Ancona', __region_mh),
 	'62': ('Macerata', __region_mh),
-	'63': ('Ascoli Piceno', __region_mh),
 	'64': ('Teramo', __region_ab),
 	'65': ('Pescara', __region_ab),
 	'66': ('Chieti', __region_ab),
@@ -267,6 +266,16 @@ def __cap_61(code):
 	return None
 
 
+def __cap_63(code):
+	if code.startswith('63'):
+		if code.startswith('631') or code.startswith('630'):
+			return 'Ascoli Piceno', __region_mh
+		if code.startswith('639') or code.startswith('638'):
+			return 'Fermo', __region_mh
+
+	return None
+
+
 def __cap_76(code):
 	if code.startswith('76'):
 		if code.startswith('76121') or code.startswith('760'):
@@ -338,6 +347,7 @@ def location_for_postcode(code):
 		__cap_47,
 		__cap_54,
 		__cap_61,
+		__cap_63,
 		__cap_76,
 		__cap_86,
 		__cap_88,

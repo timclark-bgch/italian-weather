@@ -84,5 +84,8 @@ def test_location_for_postcode():
 	assert location_for_postcode('60121') == 'Ancona, Marche'
 	assert location_for_postcode('61100') == 'Pesaro, Marche'
 	assert location_for_postcode('61029') == 'Urbino, Marche'
+	assert location_for_postcode('62100') == 'Macerata, Marche'
+	assert location_for_postcode('63100') == 'Ascoli Piceno, Marche'
+	assert location_for_postcode('63900') == 'Fermo, Marche'
 
 
