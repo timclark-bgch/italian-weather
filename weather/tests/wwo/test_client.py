@@ -1,9 +1,17 @@
-# import weather.wwo.client as client
+import pytest
+
+import weather.wwo.client as client
+import os
 
 
-def test_client():
-	pass
-	# assert client.perform_query(query='90210', key='3c2e8cc762120943102403', feed_key='0a8402ca22122635102403') == {}
+@pytest.mark.skipif(
+	('wwo_key' not in os.environ) or ('wwo_feed_key' not in os.environ),
+	reason='Requires environment variables with API keys:[wwo_key, wwo_feed_key]')
+def test_real_api():
+	response = client.perform_query(query='90210', key=os.environ['wwo_key'], feed_key=os.environ['wwo_feed_key'])
+	assert response.get('description', None) is not None
+	assert response.get('icon', None) is not None
+	assert response.get('temperature', None) is not None
 
 
 def test_timeout():
