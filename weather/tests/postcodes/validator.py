@@ -1,7 +1,9 @@
 import json
 import time
+
 import requests
-from weather.wwo.italy import location_for_postcode
+
+from weather.wwo import location_for_postcode
 
 postcodes = [
 	'00118', '01100', '02100', '03100', '04100', '05100', '06121', '07100', '07026', '07029', '08100', '08045', '08048',
