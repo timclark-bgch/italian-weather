@@ -9,7 +9,7 @@ __headers = {'Host': 'www.worldweatheronline.com'}
 __url = 'http://www.worldweatheronline.com/feed/premium-weather-V2.ashx/weather'
 
 
-def perform_query(query, key, feed_key, http=requests):
+def perform_query(query, key, feed_key, http=requests.get):
 	payload = {
 		'key': key,
 		'feedkey': feed_key,
@@ -21,16 +21,24 @@ def perform_query(query, key, feed_key, http=requests):
 	}
 
 	try:
-		r = http.get(__url, params=payload, headers=__headers, timeout=1)
+		r = http(__url, params=payload, headers=__headers, timeout=1)
 
 		if r.status_code == requests.codes.ok:
 			return __current_weather(r.json()['data']['current_condition'])
+		else:
+			# TODO log failed request
+			print r.status_code
 	except requests.exceptions.RequestException as e:
 		# TODO better exception metrics and logging
 		print e
-		return None
+	except ValueError as e:
+		# TODO log bad JSON
+		print e
+	except Exception as e:
+		# TODO all other errors
+		print e
 
-	return observation()
+	return None
 
 
 __icons = {
@@ -68,13 +76,16 @@ def __icon(url):
 
 def __current_weather(data):
 	conditions = [(c['temp_C'], c['weatherDesc'], c['isdaytime'], c['weatherIconUrl']) for c in data]
-	temperature = conditions[0][0]
-	description = conditions[0][1][0]['value']
-	night_time = 'yes' != conditions[0][2]
-	icon = conditions[0][3][0]['value']
+	if conditions:
+		temperature = conditions[0][0]
+		description = conditions[0][1][0]['value']
+		night_time = 'yes' != conditions[0][2]
+		icon = conditions[0][3][0]['value']
 
-	return observation(
-		temperature=celcius_temperature(temperature),
-		description=description,
-		icon=__icon(icon),
-		night=night_time)
+		return observation(
+			temperature=celcius_temperature(temperature),
+			description=description,
+			icon=__icon(icon),
+			night=night_time)
+
+	return None

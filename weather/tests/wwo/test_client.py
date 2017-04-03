@@ -1,4 +1,6 @@
 import pytest
+import requests
+from mock import create_autospec
 
 import weather.wwo.client as client
 import os
@@ -14,13 +16,48 @@ def test_real_api():
 	assert response.get('temperature', None) is not None
 
 
-def test_timeout():
-	pass
+def test_request_exception():
+	mock_response = create_autospec(requests.Response)
+	mock_response.status_code = requests.codes.ok
+	mock_response.json.side_effect = requests.exceptions.RequestException('Request failed')
+
+	mock_http = create_autospec(requests.get, return_value=mock_response)
+
+	result = client.perform_query(query='BAD_REQUEST', http=mock_http, key=None, feed_key=None)
+
+	assert result is None
+
+
+def test_response_not_ok():
+	mock_response = create_autospec(requests.Response)
+	mock_response.status_code = requests.codes.forbidden
+
+	mock_http = create_autospec(requests.get, return_value=mock_response)
+
+	result = client.perform_query(query='SERVER_PROBLEM', http=mock_http, key=None, feed_key=None)
+
+	assert result is None
 
 
 def test_bad_json():
-	pass
+	mock_response = create_autospec(requests.Response)
+	mock_response.status_code = requests.codes.ok
+	mock_response.json.side_effect = ValueError('No JSON object could be decoded')
+
+	mock_http = create_autospec(requests.get, return_value=mock_response)
+
+	result = client.perform_query(query='BAD_JSON', http=mock_http, key=None, feed_key=None)
+
+	assert result is None
 
 
-def test_bad_network():
-	pass
+def test_incorrect_json():
+	mock_response = create_autospec(requests.Response)
+	mock_response.status_code = requests.codes.ok
+	mock_response.json = {'cabbages': [1, 2, 3], 'carrots': True}
+
+	mock_http = create_autospec(requests.get, return_value=mock_response)
+
+	result = client.perform_query(query='INCORRECT_JSON', http=mock_http, key=None, feed_key=None)
+
+	assert result is None
