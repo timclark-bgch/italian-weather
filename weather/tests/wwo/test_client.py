@@ -54,10 +54,38 @@ def test_bad_json():
 def test_incorrect_json():
 	mock_response = create_autospec(requests.Response)
 	mock_response.status_code = requests.codes.ok
-	mock_response.json = {'cabbages': [1, 2, 3], 'carrots': True}
+	mock_response.json.return_value = {'cabbages': [1, 2, 3], 'carrots': True}
 
 	mock_http = create_autospec(requests.get, return_value=mock_response)
 
 	result = client.perform_query(query='INCORRECT_JSON', http=mock_http, key=None, feed_key=None)
 
 	assert result is None
+
+
+def test_correct_json():
+	mock_response = create_autospec(requests.Response)
+	mock_response.status_code = requests.codes.ok
+	mock_response.json.return_value = {
+		'cabbages': [1, 2, 3], 'carrots': True,
+		'data':
+			{
+				'current_condition': [
+					{
+						'temp_C': 10,
+						'weatherDesc': [{'value': 'Grimy'}],
+						'isdaytime': 'nope',
+						'weatherIconUrl': [{'value': '/wsymbol_0037_cloudy_with_sleet_night.png'}]
+					}
+				]
+			}
+	}
+
+	mock_http = create_autospec(requests.get, return_value=mock_response)
+
+	result = client.perform_query(query='CORRECT_JSON', http=mock_http, key=None, feed_key=None)
+
+	assert result is not None
+	assert result['temperature']['value'] == 10
+	assert result['description'] == 'Grimy'
+	assert result['icon'] == 'night_cloudy_with_sleet'

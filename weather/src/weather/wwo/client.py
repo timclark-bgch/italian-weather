@@ -1,4 +1,5 @@
 import re
+import traceback
 
 import requests
 
@@ -36,7 +37,7 @@ def perform_query(query, key, feed_key, http=requests.get):
 		print e
 	except Exception as e:
 		# TODO all other errors
-		print e
+		traceback.print_exc()
 
 	return None
 
@@ -69,7 +70,7 @@ __icons = {
 def __icon(url):
 	result = re.search(r'/wsymbol_[0-9]+_(.*).png$', url)
 	if result:
-		return __icons.get(result.group(1), None)
+		return __icons.get(result.group(1).replace('_night', ''), None)
 
 	return None
 
