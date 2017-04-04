@@ -1,5 +1,6 @@
 from mock import create_autospec
 import weather.wwo.query as wwo
+
 from weather.wwo.client import perform_query
 
 __config = {
@@ -24,4 +25,3 @@ def test_gb_query():
 	result = wwo.weather('GB', 'SW1A 1AA', __config, mock_query)
 	assert result is not None
 	mock_query.assert_called_once_with('SW1A 1AA', key=__config['key'], feed_key=__config['feed_key'])
-
