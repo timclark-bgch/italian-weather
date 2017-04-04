@@ -1,6 +1,6 @@
 import time
 
-from weather import wwo
+import wwo.query as wwo
 
 __providers = {
 	'GB': wwo.weather
