@@ -17,6 +17,10 @@ def perform_query(query, key, feed_key, http=requests.get):
 		'tp': '3',
 		'format': 'json',
 		'extra': 'utcDateTime,isDayTime',
+		'cc': 'yes',
+		'fx': 'no',
+		'mca': 'no',
+		'fx24': 'no',
 		'query': query
 	}
 
