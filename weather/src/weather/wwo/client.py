@@ -1,5 +1,4 @@
 import re
-import traceback
 
 import requests
 
@@ -37,7 +36,7 @@ def perform_query(query, key, feed_key, http=requests.get):
 		print e
 	except Exception as e:
 		# TODO all other errors
-		traceback.print_exc()
+		print e
 
 	return None
 
