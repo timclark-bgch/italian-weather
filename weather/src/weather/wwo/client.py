@@ -4,12 +4,13 @@ import requests
 
 import weather.types as types
 from weather.core import observation, celcius_temperature
+from weather.metrics import MetricRecorder
 
 __headers = {'Host': 'www.worldweatheronline.com'}
 __url = 'http://www.worldweatheronline.com/feed/premium-weather-V2.ashx/weather'
 
 
-def perform_query(query, key, feed_key, http=requests.get):
+def perform_query(query, key, feed_key, http=requests.get, metrics=MetricRecorder('wwo')):
 	payload = {
 		'key': key,
 		'feedkey': feed_key,
@@ -28,19 +29,15 @@ def perform_query(query, key, feed_key, http=requests.get):
 		r = http(__url, params=payload, headers=__headers, timeout=1)
 
 		if r.status_code == requests.codes.ok:
-			return __current_weather(r.json()['data']['current_condition'])
+			weather = __current_weather(r.json()['data']['current_condition'])
+			metrics.succeeded()
+			return weather
 		else:
-			# TODO log failed request
-			print r.status_code
+			metrics.failed(query, r.status_code, r.content)
 	except requests.exceptions.RequestException as e:
-		# TODO better exception metrics and logging
-		print e
-	except ValueError as e:
-		# TODO log bad JSON
-		print e
+		metrics.error(query, e)
 	except Exception as e:
-		# TODO all other errors
-		print e
+		metrics.error(query, e)
 
 	return None
 
